@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">ZOTO ADMIN</div>
+    </header>
+
+    <section class="content-section">
+      <h2>Notifications</h2>
+      <div id="notifications-container">
+        <p>No new notifications.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; zotocash.com</p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const notificationsContainer = document.getElementById(
+          "notifications-container"
+        );
+
+        async function renderNotifications() {
+          try {
+            const response = await fetch(
+              "http://localhost:3000/api/admin/transactions"
+            );
+            const transactions = await response.json();
+
+            if (transactions.length > 0) {
+              notificationsContainer.innerHTML = "";
+              transactions.forEach((transaction) => {
+                const card = document.createElement("div");
+                card.classList.add("notification-card");
+                let statusColor = "";
+                if (transaction.type === "Deposit") {
+                  statusColor = "green";
+                } else if (transaction.type === "Withdrawal") {
+                  statusColor = "orange";
+                }
+                let phoneNumberHtml = "";
+                if (transaction.phoneNumber) {
+                  phoneNumberHtml = `<p><strong>Phone Number:</strong> ${transaction.phoneNumber}</p>`;
+                }
+                const cardContent = `
+                                <p><strong>Type:</strong> ${transaction.type}</p>
+                                <p><strong>Gateway:</strong> ${transaction.gateway}</p>
+                                <p><strong>Amount:</strong> <span class="status" style="color: ${statusColor};">${transaction.amount} USD</span></p>
+                                ${phoneNumberHtml}
+                                <p><strong>Date:</strong> ${transaction.date}</p>
+                            `;
+                card.innerHTML = cardContent;
+                notificationsContainer.appendChild(card);
+              });
+            } else {
+              notificationsContainer.innerHTML = "<p>No new notifications.</p>";
+            }
+          } catch (error) {
+            notificationsContainer.innerHTML =
+              "<p>Failed to load notifications. Please check the server connection.</p>";
+            console.error("Failed to load transactions:", error);
+          }
+        }
+
+        renderNotifications();
+      });
+    </script>
+  </body>
+</html>

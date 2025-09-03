@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logout - Lexuexchange</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">Lexuexchange</div>
+      <nav>
+        <a href="#" class="icon">👤</a>
+        <a href="#" class="icon toggle-btn" id="toggle-btn">☰</a>
+      </nav>
+    </header>
+    <div class="sidebar" id="sidebar">
+      <a href="#" class="close-btn">&times;</a>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="deposit.html">Deposit</a>
+      <a href="withdrawal.html">Withdrawal</a>
+      <a href="transactions.html">Transactions</a>
+      <a href="support.html">Support</a>
+      <a href="logout.html"">Logout</a>
+    </div>
+
+    <section class="content-section">
+      <h2>You have been logged out.</h2>
+      <p>
+        Thank you for using Lexuexchange. To log back in, please return to the
+        <a href="index.html">Welcome Back</a>.
+      </p>
+    </section>
+<a href="#" id="logout-button"><button class="button primary">Logout</button></a>
+   
+
+    <script src="script.js"></script>
+    <script>
+      document
+        .getElementById("logout-button")
+        .addEventListener("click", function () {
+          localStorage.clear();
+
+          //Riderect to the login page or homepage
+
+          window.location.href = "/signin.html";
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deposit - ZotoCash</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">ZOTO</div>
+      <nav>
+        <a href="profile.html" class="icon">👤</a>
+        <a href="#" class="icon toggle-btn" id="toggle-btn">☰</a>
+      </nav>
+    </header>
+    <div class="sidebar" id="sidebar">
+      <a href="#" class="close-btn">&times;</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="withdrawal.html">Withdraw</a>
+      <a href="support.html">Support</a>
+      <a href="logout.html">Logout</a>
+    </div>
+
+    <section class="form-container">
+      <h2>Deposit Funds</h2>
+      <form id="depositForm">
+        <div class="form-group">
+          <label for="gateway">Select Gateway</label>
+          <select id="gateway" name="gateway">
+            <option value="">Select Gateway</option>
+            <option value="korapay">Korapay</option>
+            <option value="myghpay">MyGHPAY</option>
+            <option value="usdt">USDT TRC-20</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="amount">Enter Amount (USD)</label>
+          <div class="input-with-currency">
+            <input
+              type="number"
+              id="amount"
+              name="amount"
+              placeholder=""
+              required
+            />
+            <span class="currency-label"></span>
+          </div>
+        </div>
+        <div
+          id="depositDetails"
+          class="deposit-details-section"
+          style="display: none"
+        >
+          <div class="withdrawal-details">
+            <div class="extra">
+              <label>Deposit Limit</label>
+              <span class="bold"> <div class="value deposit-limit"></div></span>
+            </div>
+            <hr />
+            <div class="extra">
+              <label>Charge</label>
+              <span class="bold"> <div class="value">0 USD</div></span>
+            </div>
+            <hr />
+            <div class="extra">
+              <label>Payable Amount</label>
+              <span class="bold">
+                <div class="value payable-amount"></div
+              ></span>
+            </div>
+            <hr />
+            <div class="extra">
+              <label>Conversion Rate</label>
+              <span class="bold">
+                <div class="value conversion-rate"></div
+              ></span>
+            </div>
+            <hr />
+            <div class="extra">
+              <label>Total Amount (GHS)</label>
+              <span class="bold"> <div class="value total-ghs"></div></span>
+            </div>
+            <hr />
+          </div>
+          <button type="submit" class="button primary">Submit Deposit</button>
+        </div>
+      </form>
+    </section>
+
+    <script src="script.js"></script>
+    <script src="/js/deposit.js"></script>
+  </body>
+</html>

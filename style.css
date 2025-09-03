@@ -1,0 +1,486 @@
+body {
+    font-family: sans-serif;
+    background-color: #181818;
+    color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+header {
+    background-color: #222;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.logo {
+    font-size: 1.5em;
+    color: #ffc107;
+    font-weight: bold;
+}
+
+
+nav a.icon {
+    color: #f0f0f0;
+    font-size: 1.5em;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+
+.hero {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+
+.hero h1 {
+    font-size: 2.5em;
+    color: #ffc107;
+    margin-bottom: 20px;
+}
+
+
+.hero p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+
+.button {
+    display: inline-block;
+    background-color: #ffc107;
+    color: #181818;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
+.button.primary {
+    background-color: #ff9800;
+}
+
+
+.form-container {
+    padding: 30px 20px;
+    max-width: 400px;
+    margin: 20px auto;
+    background-color: #222;
+    border-radius: 5px;
+}
+
+
+.form-container h2 {
+    text-align: center;
+    color: #ffc107;
+    margin-bottom: 20px;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+.form-group label {
+    display: block;
+    color: #ddd;
+    margin-bottom: 5px;
+}
+
+
+.form-group input,
+.form-group select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    background-color: #333;
+    color: #f0f0f0;
+    border: 1px solid #555;
+    border-radius: 3px;
+}
+
+
+.mobile-group {
+    display: flex;
+    align-items: center;
+}
+
+
+.mobile-input {
+    display: flex;
+    width: 100%;
+    border: 1px solid #555;
+    border-radius: 3px;
+    background-color: #333;
+}
+
+
+.mobile-input .prefix {
+    background-color: #ffc107;
+    color: #181818;
+    padding: 10px;
+    border-right: 1px solid #555;
+    border-radius: 3px 0 0 3px;
+}
+
+
+.mobile-input input {
+    border: none;
+    background-color: transparent;
+    color: #f0f0f0;
+    padding: 10px;
+    flex-grow: 1;
+    border-radius: 0 3px 3px 0;
+}
+
+
+.dashboard {
+    padding: 20px;
+}
+
+
+.balance-card {
+    background-color: #ffc107;
+    color: #181818;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.balance-card .amount {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+
+.balance-card .icon-right {
+    margin-left: 10px;
+    font-size: 1.5em;
+}
+
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #222;
+    color: #aaa;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+}
+
+.bold{
+    font-weight:bold;
+}
+.mobile-nav {
+    background-color: #222;
+    color: #f0f0f0;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+
+.mobile-nav a {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+
+@media (min-width: 768px) {
+    .mobile-nav {
+        display: none;
+    }
+
+
+    footer {
+        position: relative;
+    }
+}
+
+/* Sidebar Styles */
+.sidebar {
+    height: 100%;
+    width: 0; /* Hidden by default */
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    background-color: #222;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 1.2em;
+    color: #f0f0f0;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #ffc107;
+}
+
+.sidebar .close-btn {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.description {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.date {
+    font-size: 0.9em;
+    color: #888;
+}
+
+.icon-status {
+    margin-right: 10px;
+    color: #ffc107;
+}
+
+.transaction-amount {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.deposit {
+    color: #4CAF50; /* Green */
+}
+
+.withdrawal {
+    color: #f44336; /* Red */
+}
+
+.withdrawal-details{
+    text-align: center;
+}
+
+/* Support Page FAQ Styles */
+.faq-container {
+    margin-top: 20px;
+}
+
+.faq-item {
+    background-color: #222;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #f0f0f0;
+    transition: color 0.3s;
+}
+
+.faq-question:hover {
+    color: #ffc107;
+}
+
+.plus-icon {
+    font-size: 1.5em;
+    transition: transform 0.3s;
+}
+
+.faq-answer {
+    background-color: #333;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.faq-answer p {
+    padding: 0 15px;
+    margin: 0;
+    padding-bottom: 15px;
+    color: #ddd;
+    line-height: 1.6;
+}
+
+/* Payment Confirmation Page Styles */
+.payment-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color:#181818;
+    padding: 20px;
+}
+
+.payment-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.payment-logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.secured-text {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.bank-icon {
+    font-size: 3em;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.pay-amount {
+    font-size: 2em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.alert-box {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+
+.alert-box.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.instruction-box {
+    background-color: #e2f4f1;
+    color: #0b503e;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.instruction-box p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.small-text {
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.confirmation-message {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.confirmation-btn {
+    width: 87%;
+    text-align: center;
+}
+
+.authen{
+    border:1.5px solid rgb(83, 48, 48);
+    text-align: center;
+    border-radius: 20px;
+}
+
+.fa{
+    color:purple;
+}
+
+.img{
+    height:350px;
+    width:100%;
+    display:fit-content;
+}
+
+.img:hover{
+    opacity: 65%;
+    cursor: pointer;
+}
+
+.extra{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.depo-wallet{
+    background-color: rgb(88, 139, 198);
+    border-radius: 20px;
+    color:white;
+    font-weight: bold;
+    height:20px;
+    padding:10px;
+    text-align: center;
+}
+
+.depo-wallet:hover{
+    background-color: rgb(89, 89, 230);
+}
+
+a{color: #aaa;}
+a:hover{
+    color:rgb(177, 143, 50);
+}
+
+.content{
+    
+    text-align: center;
+}
+
+ .notification-card {
+        background: #343030;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: #aaa;
+      }
+      .notification-card p {
+        margin: 0 0 5px 0;
+        font-size: 16px;
+      }
+      .notification-card .status {
+        font-weight: bold;
+        color: green; /* Default color for success */
+      }

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Withdraw Funds</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">ZOTO</div>
+      <nav>
+        <a href="profile.html" class="icon">👤</a>
+        <a href="#" class="icon toggle-btn" id="toggle-btn">☰</a>
+      </nav>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+      <a href="#" class="close-btn">&times;</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="deposit.html">Deposit</a>
+      <a href="support.html">Support</a>
+      <a href="logout.html">Logout</a>
+    </div>
+
+    <section class="form-container">
+      <h2 id="gatewayHeader"></h2>
+      <div class="deposit-summary">
+        <p>
+          You have requested <span id="requested-usd"></span>. Please pay
+          <span id="pay-ghs"></span> for successful withdrawal
+        </p>
+      </div>
+      <form id="paymentForm">
+        <div class="form-group">
+          <label for="accountNumber">Account Number*</label>
+          <input type="text" id="accountNumber" name="accountNumber" required />
+        </div>
+        <div class="form-group">
+          <label for="networkProvider">Network Provider*</label>
+          <select id="networkProvider" name="networkProvider" required>
+            <option value="">Select One</option>
+            <option value="mtn">MTN</option>
+            <option value="telecel">Telecel</option>
+            <option value="airteltigo">AirtelTigo</option>
+          </select>
+        </div>
+        <button type="submit" class="button primary">Withdraw Now</button>
+      </form>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const requestedUSD = document.getElementById("requested-usd");
+        const payGHS = document.getElementById("pay-ghs");
+        const gatewayHeader = document.getElementById("gatewayHeader");
+        const paymentForm = document.getElementById("paymentForm");
+
+        const usdAmount = localStorage.getItem("depositUSD");
+        const ghsAmount = localStorage.getItem("depositGHS");
+        const gatewayName = localStorage.getItem("depositGateway");
+
+        if (usdAmount && ghsAmount && gatewayName) {
+          requestedUSD.textContent = `${parseFloat(usdAmount).toFixed(2)} USD`;
+          payGHS.textContent = `${parseFloat(ghsAmount).toFixed(2)} GHS`;
+          gatewayHeader.textContent = `${gatewayName} GHS Payment`;
+        }
+
+        paymentForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          // Get existing balances from local storage
+          let currentTotalDeposit =
+            parseFloat(localStorage.getItem("totalWithdraw")) || 0;
+          let currentDepositBalance =
+            parseFloat(localStorage.getItem("withdrawalBalance")) || 0;
+
+          // Add the new deposit amount to the totals
+          const newDepositAmount = parseFloat(usdAmount);
+          currentTotalDeposit += newDepositAmount;
+          currentDepositBalance += newDepositAmount;
+
+          // Get the phone number from the input field
+          const phoneNumber = document.getElementById("accountNumber").value;
+
+          // Save the new totals to local storage
+          localStorage.setItem("totalDeposit", currentTotalDeposit.toFixed(2));
+          localStorage.setItem(
+            "depositBalance",
+            currentDepositBalance.toFixed(2)
+          );
+
+          // Save the transaction for the transactions page
+          let transactions =
+            JSON.parse(localStorage.getItem("transactions")) || [];
+          const newTransaction = {
+            type: Withdrawal,
+            gateway: gatewayName,
+            amount: `+${parseFloat(usdAmount).toFixed(2)}`,
+            date: new Date().toLocaleDateString(),
+            phoneNumber: phoneNumber,
+          };
+          transactions.unshift(newTransaction);
+          localStorage.setItem("transactions", JSON.stringify(transactions));
+
+          // Send a signal to the admin page to update
+          localStorage.setItem("adminUpdateRequired", "true");
+
+          // Redirect to the new confirmation page
+          window.location.href = "withdrawal-confirmation.html";
+        });
+      });
+    </script>
+  </body>
+</html>

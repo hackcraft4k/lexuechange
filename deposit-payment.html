@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deposit Payment</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">ZOTO</div>
+      <nav>
+        <a href="profile.html" class="icon">👤</a>
+        <a href="#" class="icon toggle-btn" id="toggle-btn">☰</a>
+      </nav>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+      <a href="#" class="close-btn">&times;</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="transactions.html">Transactions</a>
+      <a href="investment.html">Investment</a>
+      <a href="support.html">Support</a>
+      <a href="profile.html">Profile</a>
+      <a href="logout.html">Logout</a>
+    </div>
+
+    <section class="form-container">
+      <h2 id="gatewayHeader"></h2>
+      <div class="deposit-summary">
+        <p>
+          You have requested <span id="requested-usd"></span>. Please pay
+          <span id="pay-ghs"></span> for successful payment
+        </p>
+      </div>
+      <form id="paymentForm">
+        <div class="form-group">
+          <label for="accountNumber">Account Number*</label>
+          <input type="text" id="accountNumber" name="accountNumber" required />
+        </div>
+        <div class="form-group">
+          <label for="networkProvider">Network Provider*</label>
+          <select id="networkProvider" name="networkProvider" required>
+            <option value="">Select One</option>
+            <option value="mtn">MTN</option>
+            <option value="telecel">Telecel</option>
+            <option value="airteltigo">AirtelTigo</option>
+          </select>
+        </div>
+        <button type="submit" class="button primary">Pay Now</button>
+      </form>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const requestedUSD = document.getElementById("requested-usd");
+        const payGHS = document.getElementById("pay-ghs");
+        const gatewayHeader = document.getElementById("gatewayHeader");
+        const paymentForm = document.getElementById("paymentForm");
+
+        const usdAmount = localStorage.getItem("depositUSD");
+        const ghsAmount = localStorage.getItem("depositGHS");
+        const gatewayName = localStorage.getItem("depositGateway");
+
+        if (usdAmount && ghsAmount && gatewayName) {
+          requestedUSD.textContent = `${parseFloat(usdAmount).toFixed(2)} USD`;
+          payGHS.textContent = `${parseFloat(ghsAmount).toFixed(2)} GHS`;
+          gatewayHeader.textContent = `${gatewayName} GHS Payment`;
+        }
+
+        paymentForm.addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const newDepositAmount = parseFloat(usdAmount);
+          const phoneNumber = document.getElementById("accountNumber").value;
+
+          try {
+            const response = await fetch("http://localhost:3000/api/deposit", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                amount: newDepositAmount,
+                phoneNumber: phoneNumber,
+                gateway: gatewayName,
+              }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              alert(data.message);
+              window.location.href = "dashboard.html";
+            } else {
+              alert("Error: " + data.message);
+            }
+          } catch (error) {
+            alert("Failed to connect to the server.");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

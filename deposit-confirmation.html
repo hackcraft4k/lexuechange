@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deposit Confirmation</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <section class="payment-container">
+      <div class="payment-card">
+        <div class="payment-logo">
+          <p class="secured-text">
+            <i class="fas fa-lock"></i> Secured by Kuud
+          </p>
+        </div>
+        <div class="bank-icon">
+          <i class="fas fa-university"></i>
+        </div>
+        <div class="pay-amount" id="pay-amount"></div>
+
+        <div class="alert-box warning">
+          <p>Do not close this page until you get a payment confirmation</p>
+        </div>
+
+        <div class="instruction-box">
+          <p>
+            Enter your mobile money pin on your phone to authorize this payment.
+          </p>
+          <p class="small-text">
+            A request from your provider has been sent to your phone, please
+            enter your PIN to authorize this payment.
+          </p>
+        </div>
+
+        <div class="confirmation-message">
+          <p>You will get a confirmation once we receive your payment.</p>
+        </div>
+
+        <a href="dashboard.html" class="button primary confirmation-btn"
+          >Deposit Confirmed</a
+        >
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const payAmountElement = document.getElementById("pay-amount");
+        const storedAmount = localStorage.getItem("depositGHS");
+
+        if (storedAmount) {
+          payAmountElement.textContent = `Pay GHS ${parseFloat(
+            storedAmount
+          ).toFixed(2)}`;
+          localStorage.removeItem("depositGHS"); // Clean up local storage
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Lexuexchange</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">Lexuexchange</div>
+      <nav>
+        <a href="profile.html" class="icon">👤</a>
+        <a href="#" class="icon toggle-btn" id="toggle-btn">☰</a>
+      </nav>
+    </header>
+    <div class="sidebar" id="sidebar">
+      <a href="#" class="close-btn">&times;</a>
+      <a href="deposit.html">Deposit</a>
+      <a href="withdrawal.html">Withdrawal</a>
+      <a href="support.html">Support</a>
+      <a href="logout.html">Logout</a>
+    </div>
+    <img class="img" src="/btc/20250821_122355.jpg" alt="" />
+    <section class="authen">
+      <div class="authentication">
+        <h1>2FA Authentication</h1>
+        <a href="" class="icon">📦</a>
+        <p>
+          To keep safe your account. <br />
+          Please enable <span class="fa"> 2FA </span>security.It will secure
+          your account and balance
+        </p>
+      </div>
+    </section>
+    <section class="dashboard">
+      <div class="balance-card">
+        <div class="text">Deposit Wallet Balance</div>
+        <div class="amount" id="deposit-wallet-balance">
+          $85 <span class="icon-right">💰</span>
+        </div>
+      </div>
+      <div class="balance-card">
+        <div class="text">Interest Wallet Balance</div>
+        <div class="amount" id="interest-wallet-balance">
+          $2 per day <span class="icon-right">💰</span>
+        </div>
+      </div>
+      <div class="balance-card">
+        <div class="text">Total Invest</div>
+        <div class="amount" id="total-invest">
+          $0 <span class="icon-right">📦</span>
+        </div>
+      </div>
+      <div class="balance-card">
+        <div class="text">Total Deposit</div>
+        <div class="amount" id="total-deposit">
+          $0 <span class="icon-right">🏦</span>
+        </div>
+      </div>
+      <div class="balance-card">
+        <div class="text">Total Withdraw</div>
+        <div class="amount" id="total-withdraw">
+          $0 <span class="icon-right">🚀</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-container">
+      <div>
+        <div class="extra">
+          <p>Transaction ID</p>
+          <p id="transaction-id"></p>
+        </div>
+        <hr />
+        <div class="extra">
+          <p>Amount</p>
+          <p style="color: green">+$85</p>
+        </div>
+        <hr />
+        <div class="extra">
+          <p>Wallet</p>
+          <p class="depo-wallet">Deposit wallet</p>
+        </div>
+        <hr />
+        <div class="extra">
+          <p>Details</p>
+          <p>You have got registration bonus of $85</p>
+        </div>
+        <hr />
+        <div class="extra">
+          <p>Post Balance</p>
+          <p>$85</p>
+        </div>
+        <hr />
+      </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const depositWalletBalance = document.getElementById(
+          "deposit-wallet-balance"
+        );
+        const totalDeposit = document.getElementById("total-deposit");
+        const totalWithdraw = document.getElementById("total-withdraw");
+
+        try {
+          const response = await fetch("http://localhost:3000/api/balances");
+          const balances = await response.json();
+
+          depositWalletBalance.textContent = `$${balances.depositBalance.toFixed(
+            2
+          )}`;
+          totalDeposit.textContent = `$${balances.totalDeposit.toFixed(2)}`;
+          totalWithdraw.textContent = `$${balances.totalWithdraw.toFixed(2)}`;
+        } catch (error) {
+          console.error("Failed to fetch balances:", error);
+          depositWalletBalance.textContent = `$0.00`;
+          totalDeposit.textContent = `$0.00`;
+          totalWithdraw.textContent = `$0.00`;
+        }
+      });
+    </script>
+  </body>
+</html>

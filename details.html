@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Details</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">ZOTO</div>
+    </header>
+    <section class="form-container">
+      <h2>Enter Your Details</h2>
+      <form id="detailsForm">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" name="fullName" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+        <button type="submit" class="button primary">Submit Details</button>
+      </form>
+    </section>
+    <footer>
+      <p>&copy; zotocash.com</p>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("detailsForm");
+        form.addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          try {
+            const response = await fetch("http://localhost:3000/api/signup", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                fullName: document.getElementById("fullName").value,
+                email: document.getElementById("email").value,
+                username: document.getElementById("username").value,
+              }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              alert(data.message);
+              window.location.href = "dashboard.html";
+            } else {
+              alert("Error: " + data.message);
+            }
+          } catch (error) {
+            alert("Failed to connect to the server.");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
