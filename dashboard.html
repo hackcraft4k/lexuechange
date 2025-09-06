@@ -106,7 +106,9 @@
         const totalWithdraw = document.getElementById("total-withdraw");
 
         try {
-          const response = await fetch("http://localhost:3000/api/balances");
+          const response = await fetch(
+            "https://lexuechange-1.onrender.com/api/balances"
+          );
           const balances = await response.json();
 
           depositWalletBalance.textContent = `$${balances.depositBalance.toFixed(

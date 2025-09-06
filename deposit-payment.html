@@ -80,17 +80,28 @@
           const phoneNumber = document.getElementById("accountNumber").value;
 
           try {
-            const response = await fetch("http://localhost:3000/api/deposit", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                amount: newDepositAmount,
-                phoneNumber: phoneNumber,
-                gateway: gatewayName,
-              }),
-            });
+            const response = await fetch(
+              "https://lexuechange-1.onrender.com/api/deposit",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  amount: newDepositAmount,
+                  phoneNumber: phoneNumber,
+                  gateway: gatewayName,
+                }),
+              }
+            );
+
+            // Inside your app.post('/api/deposit-payment', ...) route
+            // ... after successful deposit logic ...
+            const depositNotification = {
+              message: `A new deposit of $${amount} has been initiated by user: ${accountNumber}`,
+              timestamp: new Date(),
+            };
+            notifications.push(depositNotification);
 
             const data = await response.json();
 

@@ -98,7 +98,17 @@ app.get('/api/admin/transactions', (req, res) => {
     res.json(userData.transactions);
 });
 
+// A simple array to store notifications
+let notifications = [];
+
+// Route to get notifications
+app.get('/api/notifications', (req, res) => {
+    res.json(notifications);
+    // You can clear notifications after they are sent to the admin
+    // notifications = [];
+});
+
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on "https://lexuechange-1.onrender.com:${PORT}`);
 });

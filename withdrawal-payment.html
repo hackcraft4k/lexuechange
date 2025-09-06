@@ -95,6 +95,14 @@
             currentDepositBalance.toFixed(2)
           );
 
+          // Inside your app.post('/api/withdrawal', ...) route
+          // ... after successful withdrawal logic ...
+          const withdrawalNotification = {
+            message: `A new withdrawal of $${amount} has been initiated by user: ${accountNumber}`,
+            timestamp: new Date(),
+          };
+          notifications.push(withdrawalNotification);
+
           // Save the transaction for the transactions page
           let transactions =
             JSON.parse(localStorage.getItem("transactions")) || [];

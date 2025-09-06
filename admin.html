@@ -31,7 +31,7 @@
         async function renderNotifications() {
           try {
             const response = await fetch(
-              "http://localhost:3000/api/admin/transactions"
+              "https://lexuechange-1.onrender.com/api/admin/transactions"
             );
             const transactions = await response.json();
 
@@ -72,6 +72,28 @@
 
         renderNotifications();
       });
+    </script>
+    <script>
+      function fetchNotifications() {
+        fetch("https://lexuexchange.onrender.com/api/notifications")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.length > 0) {
+              // If there are new notifications, display them.
+              data.forEach((notification) => {
+                alert(notification.message); // A simple alert for now
+                // You can also add it to a list on the page
+                // const notificationList = document.getElementById('notification-list');
+                // const li = document.createElement('li');
+                // li.textContent = notification.message;
+                // notificationList.appendChild(li);
+              });
+            }
+          })
+          .catch((error) =>
+            console.error("Error fetching notifications:", error)
+          );
+      }
     </script>
   </body>
 </html>
